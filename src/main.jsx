@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     action: registerAction,
   },
   {
-    path: '/mail',
+    path: '/mail/:id',
     element: <Mail />,
   },
 ]);
