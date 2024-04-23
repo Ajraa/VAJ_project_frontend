@@ -19,6 +19,8 @@ export async function loginAction({ request }) {
   const password = formData.get('password');
   const serverResponse = await loginFetch(username, password);
 
+  console.log(serverResponse);
+
   if (serverResponse.code != 200) return {"error": serverResponse.message};
   return {"obj": serverResponse.obj};
 }
@@ -50,7 +52,7 @@ export default function Login() {
               Sign in
             </Button>
             {errors?.error && <Alert severity="error">{errors.error}</Alert>}
-            {errors?.obj && navigate(`/mail/${errors.obj.id}`, {state: errors.obj})}
+            {errors?.obj && navigate(`/mail/${errors.obj.id}/r`, {state: errors.obj})}
             <Grid container>
               <Grid item xs>
                 <Link component={reactLink} to='/changepassword' variant="body2">Forgot password?</Link>

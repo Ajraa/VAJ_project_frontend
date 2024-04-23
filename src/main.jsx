@@ -5,7 +5,7 @@ import Login, { loginAction } from './login';
 import Register, { registerAction } from './register';
 import Mail from './mail';
 import ChangePassword, { changePasswordAction } from './changePassword';
-import EmailList from './components/emailList';
+import EmailList, { emailListLoader } from './components/emailList';
 
 const router = createBrowserRouter([
   {
@@ -28,8 +28,9 @@ const router = createBrowserRouter([
     element: <Mail />,
     children: [
       {
-        path: "",
-        element: <EmailList/>
+        path: ":mode",
+        element: <EmailList/>,
+        loader: emailListLoader
       }
     ]
   },
