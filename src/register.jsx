@@ -7,7 +7,7 @@ import { Container } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { registerFetch } from './API/UserClient';
-import { useActionData, Form } from 'react-router-dom';
+import { useActionData, Form, useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 
 export async function registerAction({ request }) {
@@ -19,13 +19,14 @@ export async function registerAction({ request }) {
 
   const serverResponse = await registerFetch(username, password);
 
-  if (serverResponse.code !== 200) return serverResponse.message;
-  return null;
+  if (serverResponse.code != 200) return { error: serverResponse.message };
+  return { obj: serverResponse.obj };
 }
 
 export default function Register() {
   const defaultTheme = createTheme();
   const errors = useActionData();
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -56,7 +57,8 @@ export default function Register() {
             <Button type="submit" fullWidth>
               Sign up
             </Button>
-            {errors && <Alert severity="error">{errors}</Alert>}
+            {errors?.error && <Alert severity="error">{errors.error}</Alert>}
+            {errors?.obj && navigate('/mail', { state: errors.obj })}
           </Box>
         </Box>
       </Container>

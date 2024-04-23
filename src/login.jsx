@@ -8,25 +8,26 @@ import { Container } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { Link as reactLink } from 'react-router-dom';
+import { Link as reactLink, useNavigate } from 'react-router-dom';
 import { loginFetch } from './API/UserClient';
 import { useActionData, Form } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 
 export async function loginAction({ request }) {
-  console.log('aaaaa');
   const formData = await request.formData();
   const username = formData.get('username');
   const password = formData.get('password');
   const serverResponse = await loginFetch(username, password);
+  console.log(serverResponse);
+  if (serverResponse.code != 200) return { error: serverResponse.message };
 
-  if (serverResponse.message === 'User not found') return 'Incorrect username or password';
-  return null;
+  return { obj: serverResponse.obj };
 }
 
 export default function Login() {
   const defaultTheme = createTheme();
   const errors = useActionData();
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -49,13 +50,16 @@ export default function Login() {
             <Button type="submit" fullWidth>
               Sign in
             </Button>
-            {errors && <Alert severity="error">{errors}</Alert>}
+            {errors?.error && <Alert severity="error">{errors.error}</Alert>}
+            {errors?.obj && navigate('/mail', { state: errors.obj })}
             <Grid container>
               <Grid item xs>
                 <Link variant="body2">Forgot password?</Link>
               </Grid>
               <Grid item>
-                <Link component={reactLink} to='/register' variant="body2">{"Don't have an account? Sign Up"}</Link>
+                <Link component={reactLink} to="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </Grid>
             </Grid>
           </Box>
