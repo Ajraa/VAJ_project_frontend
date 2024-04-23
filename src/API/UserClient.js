@@ -28,4 +28,19 @@ const registerFetch = async (username, password) => {
   return responseData;
 };
 
-export { loginFetch, registerFetch };
+const changePasswordFetch = async (username, password) => {
+  const url = `${apiUrl}changePassword?username=${username}&password=${password}`;
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const responseData = await response.json();
+  console.log(responseData);
+  return responseData;
+};
+
+export { loginFetch, registerFetch, changePasswordFetch };

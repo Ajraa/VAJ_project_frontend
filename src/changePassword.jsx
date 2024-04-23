@@ -1,32 +1,32 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import { Link as reactLink, useNavigate } from 'react-router-dom';
-import { loginFetch } from './API/UserClient';
-import { useActionData, Form } from 'react-router-dom';
+import { changePasswordFetch } from './API/UserClient';
+import { useActionData, Form, useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 
-export async function loginAction({ request }) {
+export async function changePasswordAction({ request }) {
   const formData = await request.formData();
   const username = formData.get('username');
   const password = formData.get('password');
-  const serverResponse = await loginFetch(username, password);
+  const confirm_password = formData.get('confirm_password');
+  if (password !== confirm_password) return "Passwords doesn't match";
 
-  if (serverResponse.code != 200) return {"error": serverResponse.message};
-  return {"obj": serverResponse.obj};
+  const serverResponse = await changePasswordFetch(username, password);
+
+  if (serverResponse.code != 200) return { error: serverResponse.message };
+  return { obj: serverResponse.obj };
 }
 
-export default function Login() {
+export default function ChangePassword() {
   const defaultTheme = createTheme();
   const errors = useActionData();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -41,24 +41,25 @@ export default function Login() {
           }}
         >
           <Typography component="h1" variant="h5">
-            Sign in
+            Change password
           </Typography>
           <Box component={Form} method="post">
             <TextField required margin="normal" fullWidth id="username" name="username" label="Username" autoFocus />
             <TextField required margin="normal" type='password' fullWidth id="password" name="password" label="Password" />
+            <TextField
+              required
+              margin="normal"
+              fullWidth
+              id="confirm_password"
+              name="confirm_password"
+              label="Confirm Password"
+              type='password'
+            />
             <Button type="submit" fullWidth>
-              Sign in
+              Change password
             </Button>
             {errors?.error && <Alert severity="error">{errors.error}</Alert>}
-            {errors?.obj && navigate(`/mail/${errors.obj.id}`, {state: errors.obj})}
-            <Grid container>
-              <Grid item xs>
-                <Link component={reactLink} to='/changepassword' variant="body2">Forgot password?</Link>
-              </Grid>
-              <Grid item>
-                <Link component={reactLink} to='/register' variant="body2">{"Don't have an account? Sign Up"}</Link>
-              </Grid>
-            </Grid>
+            {errors?.obj && navigate("/")}
           </Box>
         </Box>
       </Container>

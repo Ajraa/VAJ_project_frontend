@@ -41,7 +41,7 @@ export default function Register() {
           }}
         >
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           <Box component={Form} method="post">
             <TextField required margin="normal" fullWidth id="username" name="username" label="Username" autoFocus />

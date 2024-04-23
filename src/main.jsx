@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login, { loginAction } from './login';
 import Register, { registerAction } from './register';
 import Mail from './mail';
+import ChangePassword, { changePasswordAction } from './changePassword';
 
 const router = createBrowserRouter([
   {
@@ -17,8 +18,14 @@ const router = createBrowserRouter([
     action: registerAction,
   },
   {
+    path: '/changepassword',
+    element: <ChangePassword/>,
+    action: changePasswordAction
+  },
+  {
     path: '/mail/:id',
     element: <Mail />,
+    children: []
   },
 ]);
 
