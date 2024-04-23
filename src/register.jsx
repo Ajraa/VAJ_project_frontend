@@ -45,7 +45,7 @@ export default function Register() {
           </Typography>
           <Box component={Form} method="post">
             <TextField required margin="normal" fullWidth id="username" name="username" label="Username" autoFocus />
-            <TextField required margin="normal" fullWidth id="password" name="password" label="Password" />
+            <TextField required margin="normal" type='password' fullWidth id="password" name="password" label="Password" />
             <TextField
               required
               margin="normal"
@@ -53,12 +53,13 @@ export default function Register() {
               id="confirm_password"
               name="confirm_password"
               label="Confirm Password"
+              type='password'
             />
             <Button type="submit" fullWidth>
               Sign up
             </Button>
             {errors?.error && <Alert severity="error">{errors.error}</Alert>}
-            {errors?.obj && navigate('/mail', { state: errors.obj })}
+            {errors?.obj && navigate(`/mail/${errors.obj.id}`, {state: errors.obj})}
           </Box>
         </Box>
       </Container>

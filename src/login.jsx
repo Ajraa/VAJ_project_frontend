@@ -18,16 +18,15 @@ export async function loginAction({ request }) {
   const username = formData.get('username');
   const password = formData.get('password');
   const serverResponse = await loginFetch(username, password);
-  console.log(serverResponse);
-  if (serverResponse.code != 200) return { error: serverResponse.message };
 
-  return { obj: serverResponse.obj };
+  if (serverResponse.code != 200) return {"error": serverResponse.message};
+  return {"obj": serverResponse.obj};
 }
 
 export default function Login() {
   const defaultTheme = createTheme();
   const errors = useActionData();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -46,20 +45,18 @@ export default function Login() {
           </Typography>
           <Box component={Form} method="post">
             <TextField required margin="normal" fullWidth id="username" name="username" label="Username" autoFocus />
-            <TextField required margin="normal" fullWidth id="password" name="password" label="Password" />
+            <TextField required margin="normal" type='password' fullWidth id="password" name="password" label="Password" />
             <Button type="submit" fullWidth>
               Sign in
             </Button>
             {errors?.error && <Alert severity="error">{errors.error}</Alert>}
-            {errors?.obj && navigate('/mail', { state: errors.obj })}
+            {errors?.obj && navigate(`/mail/${errors.obj.id}`, {state: errors.obj})}
             <Grid container>
               <Grid item xs>
                 <Link variant="body2">Forgot password?</Link>
               </Grid>
               <Grid item>
-                <Link component={reactLink} to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Link component={reactLink} to='/register' variant="body2">{"Don't have an account? Sign Up"}</Link>
               </Grid>
             </Grid>
           </Box>
