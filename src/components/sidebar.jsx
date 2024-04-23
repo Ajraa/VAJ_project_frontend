@@ -7,7 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
-import Toolbar from '@mui/material/Toolbar';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from "@mui/system";
@@ -18,6 +17,12 @@ const styles = styled(() => ({
   },
   drawerPaper: {
     width: 240,
+  },
+  active: {
+    background: '#f4f4f4'
+  },
+  buttons: {
+    witdh: '100%'
   }
 })
  
@@ -32,7 +37,6 @@ export default function Sidebar() {
       anchor='left'
       classes={{paper: styles.drawerPaper}}
     >
-      <Toolbar>
         <List>
           <ListItem key={'send'} disablePadding>
             <ListItemButton>
@@ -68,8 +72,6 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
         </List>
-        <Divider />
-      </Toolbar>
     </Drawer>
   );
 }
