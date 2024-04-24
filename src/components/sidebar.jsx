@@ -13,16 +13,16 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const activeStyle = {
-  background: '#f4f4f4'
-}
+  background: '#f4f4f4',
+};
 
 const drawer = {
-  width: 240
-}
+  width: 240,
+};
 
 const drawerPaper = {
-  width: 240
-}
+  width: 240,
+};
 
 export default function Sidebar(props) {
   const navigate = useNavigate();
@@ -30,58 +30,73 @@ export default function Sidebar(props) {
   const [user, setUser] = useState(props.user);
 
   useEffect(() => {
-    if(user === null || !user.username)
-      navigate('/');
+    if (user === null || !user.username) navigate('/');
   });
 
   const handleNavigation = (mode) => {
     console.log('user');
     console.log(user);
     setMode(mode);
-    navigate(`/mail/${user.id}/${mode}`, {state: user});
-  }
+    navigate(`/mail/${user.id}/${mode}`, { state: user });
+  };
   return (
-    <Drawer
-      style={drawer}
-      variant='permanent'
-      anchor='left'
-      classes={{paper: drawerPaper}}
-    >
-        <List>
-          <ListItem key={'send'} disablePadding onClick={() => {navigate(`/mail/${user.id}/content/send`)}}>
-            <ListItemButton>
-              <ListItemIcon>
-                <SendIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Send'} />
-            </ListItemButton>
-          </ListItem>
+    <Drawer style={drawer} variant="permanent" anchor="left" classes={{ paper: drawerPaper }}>
+      <List>
+        <ListItem
+          key={'send'}
+          disablePadding
+          onClick={() => {
+            navigate(`/mail/${user.id}/content/send`);
+          }}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <SendIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Send'} />
+          </ListItemButton>
+        </ListItem>
         <Divider />
-          <ListItem key={'inbox'} disablePadding onClick={() => handleNavigation('r')} style={mode == 'r' ? activeStyle : null}>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Inbox'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem key={'sent'} disablePadding onClick={() => handleNavigation('s')} style={mode == 's' ? activeStyle : null}>
-            <ListItemButton>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Sent'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem key={'trash'} disablePadding onClick={() => handleNavigation('d')} style={mode == 'd' ? activeStyle : null}>
-            <ListItemButton >
-              <ListItemIcon>
-                <DeleteIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Trash'} />
-            </ListItemButton>
-          </ListItem>
-        </List>
+        <ListItem
+          key={'inbox'}
+          disablePadding
+          onClick={() => handleNavigation('r')}
+          style={mode == 'r' ? activeStyle : null}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Inbox'} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem
+          key={'sent'}
+          disablePadding
+          onClick={() => handleNavigation('s')}
+          style={mode == 's' ? activeStyle : null}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Sent'} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem
+          key={'trash'}
+          disablePadding
+          onClick={() => handleNavigation('d')}
+          style={mode == 'd' ? activeStyle : null}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <DeleteIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Trash'} />
+          </ListItemButton>
+        </ListItem>
+      </List>
     </Drawer>
   );
 }

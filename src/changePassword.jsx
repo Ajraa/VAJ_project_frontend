@@ -45,7 +45,15 @@ export default function ChangePassword() {
           </Typography>
           <Box component={Form} method="post">
             <TextField required margin="normal" fullWidth id="username" name="username" label="Username" autoFocus />
-            <TextField required margin="normal" type='password' fullWidth id="password" name="password" label="Password" />
+            <TextField
+              required
+              margin="normal"
+              type="password"
+              fullWidth
+              id="password"
+              name="password"
+              label="Password"
+            />
             <TextField
               required
               margin="normal"
@@ -53,13 +61,13 @@ export default function ChangePassword() {
               id="confirm_password"
               name="confirm_password"
               label="Confirm Password"
-              type='password'
+              type="password"
             />
             <Button type="submit" fullWidth>
               Change password
             </Button>
             {errors?.error && <Alert severity="error">{errors.error}</Alert>}
-            {errors?.obj && navigate("/")}
+            {errors?.obj && navigate('/')}
           </Box>
         </Box>
       </Container>
