@@ -25,7 +25,6 @@ const styles = styled(() => ({
     witdh: '100%'
   }
 })
- 
 );
 
 export default function Sidebar() {
