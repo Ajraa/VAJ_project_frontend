@@ -40,7 +40,10 @@ export default function EmailList() {
     mails = data.obj.map(email => (
     <ListItem key={email.id} divider onClick={() => handleNavigation(email)}>
       <ListItemButton>
-        <ListItemText primary={`${email.title}    ${getSubstring(email.content, 100)}`} />
+      <ListItemText
+        primary={<span style={{ fontWeight: 'bold' }}>{email.title}</span>}
+        secondary={<span style={{ fontSize: 'smaller' }}>{getSubstring(email.content, 100)}</span>}
+    />
       </ListItemButton>
     </ListItem>
   ));
