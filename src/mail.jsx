@@ -6,7 +6,7 @@ import { Box } from '@mui/system';
 
 export default function Mail() {
   const location = useLocation();
-  const user = location.state;
+  const user = {...location.state};
   return (
     <Box sx={{mx: 'auto'}}>
       <Sidebar user={user}/>

@@ -6,6 +6,7 @@ import Register, { registerAction } from './register';
 import Mail from './mail';
 import ChangePassword, { changePasswordAction } from './changePassword';
 import EmailList, { emailListLoader } from './components/emailList';
+import MailContent from './components/mailContent';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
       {
         path: ":mode",
         element: <EmailList/>,
-        loader: emailListLoader
+        loader: emailListLoader,
+      },
+      {
+        path: "content/:id",
+        element: <MailContent/>
       }
     ]
   },

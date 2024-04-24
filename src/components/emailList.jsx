@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { loadActiveEmailsFetch, loadDeletedEmailsFetch, loadSentEmailsFetch } from "../API/EmailClient";
 import { Box } from "@mui/system";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
@@ -27,11 +27,18 @@ function getSubstring(string, maxLength) {
 
 export default function EmailList() {
   const data =  useLoaderData();
-  console.log(data);
+  const navigate = useNavigate();
+  const params = useParams();
+  console.log(params);
+
+  const handleNavigation = (email) => {
+    navigate(`/mail/${params.id}/content/${email.id}`, {state: email})
+  }
+
   let mails;
   if(!data.error) {
     mails = data.obj.map(email => (
-    <ListItem key={email.id} divider>
+    <ListItem key={email.id} divider onClick={() => handleNavigation(email)}>
       <ListItemButton>
         <ListItemText primary={`${email.title}    ${getSubstring(email.content, 100)}`} />
       </ListItemButton>

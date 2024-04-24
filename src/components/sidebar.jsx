@@ -26,8 +26,8 @@ const drawerPaper = {
 
 export default function Sidebar(props) {
   const navigate = useNavigate();
-
   const [mode, setMode] = useState(null);
+  const [user, setUser] = useState(props.user);
 
   useEffect(() => {
     if(props.user === null)
@@ -35,8 +35,10 @@ export default function Sidebar(props) {
   });
 
   const handleNavigation = (mode) => {
+    console.log('user');
+    console.log(user);
     setMode(mode);
-    navigate(`/mail/${props.user.id}/${mode}`, {state: props.user});
+    navigate(`/mail/${user.id}/${mode}`, {state: user});
   }
   return (
     <Drawer
