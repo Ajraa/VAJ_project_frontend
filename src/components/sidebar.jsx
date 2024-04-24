@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -94,6 +95,19 @@ export default function Sidebar(props) {
               <DeleteIcon />
             </ListItemIcon>
             <ListItemText primary={'Trash'} />
+          </ListItemButton>
+        </ListItem>
+        <Divider/>
+        <ListItem
+          key={'logout'}
+          disablePadding
+          onClick={() => navigate('/')}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Logout'} />
           </ListItemButton>
         </ListItem>
       </List>
