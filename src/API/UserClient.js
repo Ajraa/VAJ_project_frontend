@@ -55,4 +55,42 @@ const changePasswordFetch = async (username, password) => {
   }
 };
 
-export { loginFetch, registerFetch, changePasswordFetch };
+const getUserByIdFetch = async (id) => {
+  try {
+    const url = `${apiUrl}/getUserById/${id}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+    return responseData;
+  } catch {
+    return { code: 500, message: 'Unexpected error' };
+  }
+};
+
+const getUserByEmailFetch = async (email) => {
+  try {
+    const url = `${apiUrl}/getUserByEmail/${email}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+    return responseData;
+  } catch {
+    return { code: 500, message: 'Unexpected error' };
+  }
+};
+
+export { loginFetch, registerFetch, changePasswordFetch, getUserByIdFetch, getUserByEmailFetch };

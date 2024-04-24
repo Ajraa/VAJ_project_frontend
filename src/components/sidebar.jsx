@@ -30,7 +30,7 @@ export default function Sidebar(props) {
   const [user, setUser] = useState(props.user);
 
   useEffect(() => {
-    if(props.user === null)
+    if(user === null || !user.username)
       navigate('/');
   });
 
@@ -48,7 +48,7 @@ export default function Sidebar(props) {
       classes={{paper: drawerPaper}}
     >
         <List>
-          <ListItem key={'send'} disablePadding>
+          <ListItem key={'send'} disablePadding onClick={() => {navigate(`/mail/${user.id}/content/send`)}}>
             <ListItemButton>
               <ListItemIcon>
                 <SendIcon />
