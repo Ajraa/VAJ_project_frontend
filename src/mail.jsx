@@ -9,7 +9,7 @@ export default function Mail() {
   const user = location.state;
   return (
     <Box sx={{mx: 'auto'}}>
-      <Sidebar/>
+      <Sidebar user={user}/>
       <div style={{marginLeft: "200px", marginTop: "0px"}}>
         <Outlet/>
       </div>

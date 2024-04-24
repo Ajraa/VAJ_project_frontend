@@ -27,7 +27,6 @@ function getSubstring(string, maxLength) {
 
 export default function EmailList() {
   const data =  useLoaderData();
-  console.log('aaa');
   console.log(data);
   let mails;
   if(!data.error) {

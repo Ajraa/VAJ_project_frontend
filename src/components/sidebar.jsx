@@ -9,32 +9,41 @@ import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { styled } from "@mui/system";
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-const styles = styled(() => ({
-  drawer: {
-    width: 240,
-  },
-  drawerPaper: {
-    width: 240,
-  },
-  active: {
-    background: '#f4f4f4'
-  },
-  buttons: {
-    witdh: '100%'
+const activeStyle = {
+  background: '#f4f4f4'
+}
+
+const drawer = {
+  width: 240
+}
+
+const drawerPaper = {
+  width: 240
+}
+
+export default function Sidebar(props) {
+  const navigate = useNavigate();
+
+  const [mode, setMode] = useState(null);
+
+  useEffect(() => {
+    if(props.user === null)
+      navigate('/');
+  });
+
+  const handleNavigation = (mode) => {
+    setMode(mode);
+    navigate(`/mail/${props.user.id}/${mode}`, {state: props.user});
   }
-})
-);
-
-export default function Sidebar() {
-  
   return (
     <Drawer
-      className={styles.drawer}
+      style={drawer}
       variant='permanent'
       anchor='left'
-      classes={{paper: styles.drawerPaper}}
+      classes={{paper: drawerPaper}}
     >
         <List>
           <ListItem key={'send'} disablePadding>
@@ -46,7 +55,7 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
         <Divider />
-          <ListItem key={'inbox'} disablePadding>
+          <ListItem key={'inbox'} disablePadding onClick={() => handleNavigation('r')} style={mode == 'r' ? activeStyle : null}>
             <ListItemButton>
               <ListItemIcon>
                 <InboxIcon />
@@ -54,7 +63,7 @@ export default function Sidebar() {
               <ListItemText primary={'Inbox'} />
             </ListItemButton>
           </ListItem>
-          <ListItem key={'sent'} disablePadding>
+          <ListItem key={'sent'} disablePadding onClick={() => handleNavigation('s')} style={mode == 's' ? activeStyle : null}>
             <ListItemButton>
               <ListItemIcon>
                 <MailIcon />
@@ -62,8 +71,8 @@ export default function Sidebar() {
               <ListItemText primary={'Sent'} />
             </ListItemButton>
           </ListItem>
-          <ListItem key={'trash'} disablePadding>
-            <ListItemButton>
+          <ListItem key={'trash'} disablePadding onClick={() => handleNavigation('d')} style={mode == 'd' ? activeStyle : null}>
+            <ListItemButton >
               <ListItemIcon>
                 <DeleteIcon />
               </ListItemIcon>
