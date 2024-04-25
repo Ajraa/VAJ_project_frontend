@@ -12,7 +12,7 @@ export async function mailContentAction({ params, request }) {
     console.log(formData);
     const title = formData.get('title');
     const email = formData.get('email');
-    const content = formData.get('email');
+    const content = formData.get('content');
     const serverResponse = await sendEmailFetch(params.id, email, title, content);
     if (serverResponse.code != 200) return { error: serverResponse.message };
     return { obj: serverResponse.obj };
@@ -59,20 +59,20 @@ export default function MailContent() {
   let button;
   if (errors.send) {
     button = (
-      <Button type="submit" fullWidth>
+      <Button width='50%' type="submit" fullWidth>
         Send
       </Button>
     );
   } else {
     if (!mail.deleted) {
       button = (
-        <Button type="submit" fullWidth>
+        <Button width='50%' type="submit" fullWidth>
           To Trash
         </Button>
       );
     } else {
       button = (
-        <Button type="submit" fullWidth>
+        <Button width='50%' type="submit" fullWidth>
           Delete
         </Button>
       );
@@ -132,7 +132,7 @@ export default function MailContent() {
         maxRows={Infinity}
         fullWidth
       />
-      <Box>
+      <Box width={'50%'}>
         {button}
         {errors?.error && <Alert severity="error">{errors.error}</Alert>}
         {aerrors?.error && <Alert severity="error">{aerrors.error}</Alert>}
